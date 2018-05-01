@@ -1,0 +1,40 @@
+1)Face_driven.m
+
+--Check if any face exists in the query image.
+	If face exists then 
+	    check if it is registered in the database or not
+
+		if registered then 
+			display images related to that face.
+		else 
+			Result will be feature based and display message-"face not found in the database".
+			goto feature_based.m
+	else //face doesn't exist
+		goto content_driven.m
+
+2) content_driven.m
+
+--Check if any text or letter exists in the query image.
+	if exists then
+		extract all the text from it and then match it from the words file in the database.
+			**condition for matching- length of word from query image>3 - ignoring a,an,the,are etc.
+				(if word matches then +1 to the words counter(no. of words matched) of a particular image of database)
+		sort the words counter in descending order and now the results will be displayed according to this counter index values.
+	
+	else //no text or letter
+		goto feature_based.m
+
+3)feature_based.m
+// Results will be displayed here definitely.
+
+Level 1-- a) Calculate rgb average of the query image.
+	  b) Compare it with other rgb average's stored in the database and calculate difference.
+	  c) Refine results on the basis of these differences(threshold set to 100).
+	  d) Level 1 results will be passed on to level 2 feature extraction.
+
+Level 2-- a) Divide the query image into 4 blocks.
+	  b) Calculate rgb average for these 4 blocks.
+	  c) Compare these 4 averages to all the images (from level 1) 4 rgb averages and corresponding differences.
+	  d) Find mean of these 4 difference values for each image(from level 1).
+	  e) Sort these means in ascending order.
+Final results will on the basis of this mean's index values.

@@ -1,0 +1,41 @@
+Face detection
+FDetect = vision.CascadeObjectDetector;
+a=imread('images.jpg');
+BB = step(FDetect,a);
+
+forming face gallery
+basepath = 'C:\Users\Sumedha\Desktop\image mining\face_gallery\';
+j=1;
+a=imread('10.jpg');
+BB = step(FDetect,a);
+for i=1:size(BB,1)
+b=imcrop(a,BB(i,:));
+imwrite(b, strcat(basepath, sprintf('%d.jpg',j)),'jpg');
+j=j+1;
+end
+
+for saveall
+imsave(handles.axes1);
+
+ocr
+a=imread('7.jpg');
+>> ocrResults     = ocr(a);
+>> recognizedText = ocrResults.Text;
+ b=ocrResults.Words{2}
+
+
+
+%RBG average
+rgbImage1=imread('22.jpg');
+rgbImage2=imread('23.jpg');
+meanRed1 = mean2(rgbImage1(:,:,1));
+meanGreen1 = mean2(rgbImage1(:,:,2));
+meanBlue1 = mean2(rgbImage1(:,:,3));
+% Get means of second image
+meanRed2 = mean2(rgbImage2(:,:,1));
+meanGreen2 = mean2(rgbImage2(:,:,2));
+meanBlue2 = mean2(rgbImage2(:,:,3));
+deltaR = abs(double(meanRed1) - double(meanRed2));
+deltaG = abs(double(meanGreen1) - double(meanGreen2));
+deltaB = abs(double(meanBlue1) - double(meanBlue2));
+delta=(deltaR+deltaG+deltaB)/3;
